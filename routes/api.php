@@ -13,6 +13,18 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('login', 'Api\UserController@login');
+Route::post('register', 'Api\UserController@register');
+Route::get('storage/{filename}', function ($filename)
+{
+    return Image::make()->response();
+});
+
+Route::group(['middleware' => ['auth:api', 'checkheaders']], function(){
+    Route::get('user', 'Api\UserController@getUser');
+    Route::patch('user/update', 'Api\UserController@updateUser');
+    Route::patch('user/password', 'Api\UserController@updatePassword');
+    Route::group(['middleware' => 'checkfield'], function () {
+        Route::patch('user/myfield', 'Api\FieldController@updateMyField');
+    });
 });
