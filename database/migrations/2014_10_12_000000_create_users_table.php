@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password', 200);
             $table->date('birthdate')->nullable();
             $table->enum('gender', ['male', 'female'])->default('male');
-            $table->string('phone_number', 15)->nullable();
+            $table->string('phone_number', 50)->nullable();
             $table->text('photo')->nullable();
             $table->enum('scope', ['player', 'field'])->default('player');
             $table->rememberToken();
