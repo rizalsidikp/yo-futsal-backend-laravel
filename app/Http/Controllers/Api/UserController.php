@@ -108,6 +108,22 @@ class UserController extends Controller
         }  
     }
 
+    //get user by id
+    public function show($id)
+    {
+        try{
+            $user = User::find($id);
+            if($user['photo']){
+                $user['photo'] = 'http://'.$_SERVER['HTTP_HOST'].'/storage/'.$user['photo'];
+            }
+            $user->field;
+            return response()->json(['success' => $user], $this->successStatus);
+        }
+        catch (Exception $e) {
+            return response()->json(['error'=> "failed", 'message' => $e.getMessage() ], 401);
+        }  
+    }
+
     public function updateUser(Request $request){
         try{
             $user = Auth::user();

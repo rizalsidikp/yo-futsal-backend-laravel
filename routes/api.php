@@ -22,6 +22,7 @@ Route::get('storage/{filename}', function ($filename)
 
 Route::group(['middleware' => ['auth:api', 'checkheaders']], function(){
     Route::get('user', 'Api\UserController@getUser');
+    Route::get('user/{id}', 'Api\UserController@show');
     Route::patch('user/update', 'Api\UserController@updateUser');
     Route::patch('user/password', 'Api\UserController@updatePassword');
     Route::group(['middleware' => 'checkfield'], function () {

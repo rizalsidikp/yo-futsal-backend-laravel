@@ -15,7 +15,7 @@ class CreateField extends Migration
     {
         Schema::create('field', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned();
             $table->string('name', 100)->nullable();
             $table->string('email', 100)->unique()->nullable();
             $table->string('phone_number', 15)->nullable();
