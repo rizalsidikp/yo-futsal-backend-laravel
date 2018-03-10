@@ -9,6 +9,6 @@ class Team extends Model
     protected $table = 'team';
 
     protected $fillable = [
-        'id', 'team_name', 'team_city'
+        'team_name', 'team_city'
     ];
 }

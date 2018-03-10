@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDetailTeamTable extends Migration
+class CreateOpponentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateDetailTeamTable extends Migration
      */
     public function up()
     {
-        Schema::create('detail_team', function (Blueprint $table) {
+        Schema::create('opponents', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('team_id');            
-            $table->integer('user_id')->unsigned();         
-            $table->boolean('owner')->default(false);         
+            $table->integer('team_id');
+            $table->integer('opponent_id');
+            $table->enum('status', ['waiting', 'accepted', 'declined', 'canceled']);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -30,6 +29,6 @@ class CreateDetailTeamTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detail_team');
+        Schema::dropIfExists('opponents');
     }
 }
