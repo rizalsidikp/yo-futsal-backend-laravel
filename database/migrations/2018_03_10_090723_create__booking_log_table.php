@@ -19,6 +19,7 @@ class CreateBookingLogTable extends Migration
             $table->enum('status', ['booking', 'waiting verification', 'booked', 'canceled', 'expired']);
             $table->text('description');            
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

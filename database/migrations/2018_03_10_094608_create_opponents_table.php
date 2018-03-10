@@ -19,6 +19,7 @@ class CreateOpponentsTable extends Migration
             $table->integer('opponent_id');
             $table->enum('status', ['waiting', 'accepted', 'declined', 'canceled']);
             $table->timestamps();
+            $table->softDeletes();            
         });
     }
 

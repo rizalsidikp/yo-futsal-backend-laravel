@@ -21,7 +21,7 @@ class CreateScheduleLogTable extends Migration
             $table->enum('status', ['booking', 'waiting opponent', 'match', 'canceled_user', 'canceled_field', 'expired', 'completed']);            
             $table->text('description');            
             $table->timestamps();
-            $table->softDeletes();            
+            $table->softDeletes();         
         });
     }
 
