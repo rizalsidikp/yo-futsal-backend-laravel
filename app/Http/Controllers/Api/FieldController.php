@@ -13,6 +13,12 @@ use Validator;
 class FieldController extends Controller
 {
     public $successStatus = 200;
+    private $field;
+
+    public function __construct(App\Field $field)
+    {
+        $this->field = $field;
+    }
 
 
     public function updateMyField(Request $request)
@@ -25,7 +31,7 @@ class FieldController extends Controller
                 'email' => 'unique:field',
             ]);
             if ($validator->fails()) {
-                return response()->json(['error'=> "failed", 'message' => $validator->errors()], 401);            
+                return response()->json(['error'=> "failed", 'message' => $validator->errors()], 400);            
             }
             $field['name'] = $request->name;
             $field['email'] = $request->email;
@@ -51,12 +57,36 @@ class FieldController extends Controller
                 $success['user'] =  $user;
                 return response()->json(['success' => $success], $this->successStatus);
             }else{
-                return response()->json(['error'=>'failed', 'message'=>'Failed to update your field profile'], 401);                
+                return response()->json(['error'=>'failed', 'message'=>'Failed to update your field profile'], 500);                
             }
             return response()->json(['success' => $user], $this->successStatus);
         }
         catch (Exception $e) {
-            return response()->json(['error'=> "Failed", 'message' => $e.getMessage() ], 401);
+            return response()->json(['error'=> "Failed", 'message' => $e.getMessage() ], 500);
         }  
     }
+
+    public function index(){
+        $field = $this->field->with('user_detail')->get();
+        $success['message'] =  "Succesfully show all field";
+        $success['field'] =  $field;
+        return response()->json(['success' => $field], $this->successStatus);
+    }
+
+    public function show($id)
+    {
+        $field = $this->field->with('user_detail')->find($id);
+        $success['message'] =  "Succesfully show field";
+        $success['field'] =  $field;
+        return response()->json(['success' => $success], $this->successStatus);
+    }
+
+    public function showByName(Request $request)
+    {
+        $field = $this->field->where('name', 'like', '%' . $request->name . '%')->orWhere('city', 'like', '%' . $request->name . '%')->get();        
+        $success['message'] =  "Succesfully show field";
+        $success['field'] =  $field;
+        return response()->json(['success' => $success], $this->successStatus);
+    }
+
 }

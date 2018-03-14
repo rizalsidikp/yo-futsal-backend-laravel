@@ -31,7 +31,7 @@ class UserController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return response()->json(['error'=> "failed", 'message' => $validator->errors()], 401);            
+                return response()->json(['error'=> "failed", 'message' => $validator->errors()], 400);            
             }
 
             if($check = DB::table('users')->select('email')->where('email', $request['email'])->get()->first()){
@@ -55,7 +55,7 @@ class UserController extends Controller
             }
             
         } catch (Exception $e) {
-            return response()->json(['error'=> "failed", 'message' => $e.getMessage() ], 401);
+            return response()->json(['error'=> "failed", 'message' => $e.getMessage() ], 500);
         }   
     }
 
@@ -83,7 +83,7 @@ class UserController extends Controller
                 return response()->json(['error'=> "failed", 'message' =>'Unauthorized'], 401);
             }
         } catch (Exception $e) {
-            return response()->json(['error'=> "failed", 'message' => $e.getMessage() ], 401);
+            return response()->json(['error'=> "failed", 'message' => $e.getMessage() ], 500);
         }  
         
     }
@@ -104,7 +104,7 @@ class UserController extends Controller
             return response()->json(['success' => $user], $this->successStatus);
         }
         catch (Exception $e) {
-            return response()->json(['error'=> "failed", 'message' => $e.getMessage() ], 401);
+            return response()->json(['error'=> "failed", 'message' => $e.getMessage() ], 500);
         }  
     }
 
@@ -120,7 +120,7 @@ class UserController extends Controller
             return response()->json(['success' => $user], $this->successStatus);
         }
         catch (Exception $e) {
-            return response()->json(['error'=> "failed", 'message' => $e.getMessage() ], 401);
+            return response()->json(['error'=> "failed", 'message' => $e.getMessage() ], 500);
         }  
     }
 
@@ -133,7 +133,7 @@ class UserController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return response()->json(['error'=> "failed", 'message' => $validator->errors()], 401);            
+                return response()->json(['error'=> "failed", 'message' => $validator->errors()], 400);            
             }
             
             $user['name'] = $request->name;
@@ -158,11 +158,11 @@ class UserController extends Controller
                 $success['user'] =  $user;
                 return response()->json(['success' => $success], $this->successStatus);
             }else{
-                return response()->json(['error'=>'failed', 'message'=>'Failed to update your profile'], 401);                
+                return response()->json(['error'=>'failed', 'message'=>'Failed to update your profile'], 500);                
             }
         }
         catch(Exception $e){
-            return response()->json(['error'=> "failed", 'message' => $e.getMessage() ], 401);            
+            return response()->json(['error'=> "failed", 'message' => $e.getMessage() ], 500);            
         }
     }
 
@@ -177,7 +177,7 @@ class UserController extends Controller
                 ]);
 
                 if ($validator->fails()) {
-                    return response()->json(['error'=> "failed", 'message' => $validator->errors()], 401);            
+                    return response()->json(['error'=> "failed", 'message' => $validator->errors()], 400);            
                 }
                 $user['password'] = bcrypt($request->new_password);
                 if($user->save()){
@@ -186,7 +186,7 @@ class UserController extends Controller
                     $success['user'] =  $user;
                     return response()->json(['success' => $success], $this->successStatus);
                 }else{
-                    return response()->json(['error'=>'failed', 'message' => 'Failed update your password'], 401);
+                    return response()->json(['error'=>'failed', 'message' => 'Failed update your password'], 500);
                 }
             }
             else{
@@ -194,8 +194,27 @@ class UserController extends Controller
             }
         }
         catch(Exception $e){
-            return response()->json(['error'=> "failed", 'message' => $e.getMessage() ], 401);                        
+            return response()->json(['error'=> "failed", 'message' => $e.getMessage() ],500);                        
         }
+    }
+
+    public function findUserByEmail(Request $request)
+    {
+        try{
+            $user = User::where([['email', 'like', '%' . $request->email . '%'], ['scope', 'player'] ])->get();
+            foreach($user as $u){
+                if($u['photo']){
+                    $u['photo'] = 'http://'.$_SERVER['HTTP_HOST'].'/storage/'.$u['photo'];
+                }
+                $u->field;
+            }
+            $success['message'] =  "Succesfully get user";
+            $success['users'] =  $user;
+            return response()->json(['success' => $success], $this->successStatus);
+        }
+        catch (Exception $e) {
+            return response()->json(['error'=> "failed", 'message' => $e.getMessage() ], 500);
+        }  
     }
 }
 

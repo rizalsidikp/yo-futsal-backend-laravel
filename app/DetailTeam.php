@@ -11,4 +11,9 @@ class DetailTeam extends Model
     protected $fillable = [
         'team_id', 'user_id'
     ];
+
+    public function user_detail()
+    {
+        return $this->belongsTo('App\User', 'user_id', 'id');
+    }
 }
