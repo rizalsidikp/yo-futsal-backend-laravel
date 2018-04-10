@@ -17,7 +17,7 @@ class Team extends Model
 
     public function detail_team()
     {
-        return $this->belongsTo('App\DetailTeam', 'id', 'team_id');
+        return $this->hasMany('App\DetailTeam', 'team_id', 'id');
     }
     
     protected $dates = ['deleted_at'];
