@@ -16,4 +16,10 @@ class DetailTeam extends Model
     {
         return $this->belongsTo('App\User', 'user_id', 'id');
     }
+
+
+    public function team()
+    {
+        return $this->belongsTo('App\Team', 'team_id', 'id');
+    }
 }
