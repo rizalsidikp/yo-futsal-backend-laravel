@@ -28,7 +28,7 @@ Route::group(['middleware' => ['auth:api', 'checkheaders']], function(){
     Route::patch('user/password', 'Api\UserController@updatePassword');
     //team
     Route::resource('team', 'Api\TeamController');
-    Route::get('myteam', 'Api\TeamController@myTeam');
+    Route::get('myteam', 'Api\DetailTeamController@myTeam');
     Route::resource('detailteam', 'Api\DetailTeamController');
     //field
     Route::resource('field', 'Api\FieldController');
