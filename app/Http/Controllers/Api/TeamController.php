@@ -17,7 +17,7 @@ class TeamController extends Controller
     public function __construct(Team $team)
     {
         $this->team = $team;
-    }      
+    }
 
     public function generateTeamId(){
         $prefix = 'YOF';
@@ -42,15 +42,6 @@ class TeamController extends Controller
     {
         //
         $team = Team::with(['detail_team', 'detail_team.user_detail'])->get();
-        $success['message'] =  "Succesfully show all team";
-        $success['team'] =  $team;
-        return response()->json(['success' => $success], $this->successStatus);
-    }
-
-    public function myTeam()
-    {
-        $user = Auth::user()->id;
-        $team = Team::with(['detail_team', 'detail_team.user_detail'])->where('user_id', $user)->get();
         $success['message'] =  "Succesfully show all team";
         $success['team'] =  $team;
         return response()->json(['success' => $success], $this->successStatus);
