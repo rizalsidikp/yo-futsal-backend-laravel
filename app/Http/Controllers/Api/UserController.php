@@ -80,7 +80,7 @@ class UserController extends Controller
                 return response()->json(['success' => $success], $this->successStatus);
             }
             else{
-                return response()->json(['error'=> "failed", 'message' =>'Unauthorized'], 401);
+                return response()->json(['error'=> "failed", 'message' =>'Username or Password does not match'], 401);
             }
         } catch (Exception $e) {
             return response()->json(['error'=> "failed", 'message' => $e.getMessage() ], 500);
@@ -101,12 +101,28 @@ class UserController extends Controller
                 $user['photo'] = 'http://'.$_SERVER['HTTP_HOST'].'/storage/'.$user['photo'];
             }
             $user->field;
-            return response()->json(['success' => $user], $this->successStatus);
+            $success['message'] =  "Succesfully show your data";
+            $success['user'] =  $user;
+            return response()->json(['success' => $success], $this->successStatus);
         }
         catch (Exception $e) {
             return response()->json(['error'=> "failed", 'message' => $e.getMessage() ], 500);
         }  
     }
+
+    public function getUsers()
+    {
+        try{
+            $users = User::get();
+            $success['message'] =  "Succesfully show all users";
+            $success['users'] =  $users;
+            return response()->json(['success' => $success], $this->successStatus);
+        }
+        catch (Exception $e) {
+            return response()->json(['error'=> "failed", 'message' => $e.getMessage() ], 500);
+        }  
+    }
+
 
     //get user by id
     public function show($id)
