@@ -70,7 +70,7 @@ class FieldController extends Controller
         $field = $this->field->with('user_detail')->get();
         $success['message'] =  "Succesfully show all field";
         $success['field'] =  $field;
-        return response()->json(['success' => $field], $this->successStatus);
+        return response()->json(['success' => $success], $this->successStatus);
     }
 
     public function show($id)
