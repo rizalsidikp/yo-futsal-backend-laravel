@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 
 Route::post('login', 'Api\UserController@login');
 Route::post('register', 'Api\UserController@register');
+Route::get('users', 'Api\UserController@getUsers');
 Route::get('storage/{filename}', function ($filename)
 {
     return Image::make()->response();
@@ -30,6 +31,9 @@ Route::group(['middleware' => ['auth:api', 'checkheaders']], function(){
     Route::resource('team', 'Api\TeamController');
     Route::get('myteam', 'Api\DetailTeamController@myTeam');
     Route::resource('detailteam', 'Api\DetailTeamController');
+    //schedule
+    Route::resource('schedule', 'Api\ScheduleController');
+    Route::get('myschedule', 'Api\ScheduleController@mySchedule');
     //field
     Route::resource('field', 'Api\FieldController');
     Route::post('field/search', 'Api\FieldController@showByName');
