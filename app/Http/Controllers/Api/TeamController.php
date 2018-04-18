@@ -86,7 +86,7 @@ class TeamController extends Controller
                 $success['team'] =  $teams;
                 return response()->json(['success' => $success], $this->successStatus);
             }else{
-                return response()->json(['error'=>'failed', 'message'=>'Failed to update your profile'], 500);                
+                return response()->json(['error'=>'failed', 'message'=>'Failed to create your team'], 500);                
             }
         }
         catch(Exception $e){
@@ -151,7 +151,7 @@ class TeamController extends Controller
                 $success['team'] =  $team;
                 return response()->json(['success' => $success], $this->successStatus);
             }else{
-                return response()->json(['error'=>'failed', 'message'=>'Failed to update your profile'], 500);                
+                return response()->json(['error'=>'failed', 'message'=>'Failed to update your team'], 500);                
             }
         }
         catch(Exception $e){
@@ -173,7 +173,7 @@ class TeamController extends Controller
                 $success['team'] =  $this->team;
                 return response()->json(['success' => $success], $this->successStatus);
             }else{
-                return response()->json(['error'=>'failed', 'message'=>'Failed to update your profile'], 500);                
+                return response()->json(['error'=>'failed', 'message'=>'Failed to delete your team'], 500);                
             }
         }
         catch(Exception $e){
