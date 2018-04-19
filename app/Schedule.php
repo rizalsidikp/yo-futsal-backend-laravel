@@ -24,6 +24,11 @@ class Schedule extends Model
 
     public function opponent_detail()
     {
-        return $this->belongsTo('App\Field', 'opponent_id', 'id');
+        return $this->belongsTo('App\Team', 'opponent_id', 'id');
+    }
+
+    public function booking_detail()
+    {
+        return $this->belongsTo('App\Booking', 'id', 'schedule_id');
     }
 }
