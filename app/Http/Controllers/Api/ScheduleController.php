@@ -26,7 +26,7 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        $schedule = $this->schedule->with(['team_detail', 'field_detail','opponent_detail'])->whereNull('deleted_at')->whereIn('status',['booking','waiting opponent','match'])->get();
+        $schedule = $this->schedule->with(['team_detail', 'field_detail','opponent_detail', 'booking_detail'])->whereNull('deleted_at')->whereIn('status',['booking','waiting opponent','match'])->get();
         $success['message'] =  "Succesfully show all schedule";
         $success['schedules'] =  $schedule;
         return response()->json(['success' => $success], $this->successStatus);
@@ -94,7 +94,7 @@ class ScheduleController extends Controller
      */
     public function show($id)
     {
-        $schedule = $this->schedule->with(['team_detail', 'field_detail','opponent_detail'])->find($id);
+        $schedule = $this->schedule->with(['team_detail', 'field_detail','opponent_detail', 'booking_detail'])->find($id);
         $success['message'] =  "Succesfully show all your schedule";
         $success['schedule'] =  $schedule;
         return response()->json(['success' => $success], $this->successStatus);
@@ -103,7 +103,7 @@ class ScheduleController extends Controller
     public function mySchedule()
     {
         $user = Auth::user();
-        $schedule = $this->schedule->with(['team_detail', 'field_detail','opponent_detail'])
+        $schedule = $this->schedule->with(['team_detail', 'field_detail','opponent_detail', 'booking_detail'])
         ->join('team','schedule.team_id', '=', 'team.id')
         ->join('detail_team','team.id', '=', 'detail_team.team_id')
         ->where('detail_team.user_id', $user->id)
