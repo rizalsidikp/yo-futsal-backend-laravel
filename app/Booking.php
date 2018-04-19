@@ -11,4 +11,9 @@ class Booking extends Model
     protected $fillable = [
         'schedule_id', 'photo', 'status'
     ];
+
+    public function schedule_detail()
+    {
+        return $this->belongsTo('App\Schedule', 'schedule_id', 'id');
+    }
 }
