@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Faker\Factory as Faker;
+use App\User;
 
 class TeamTableSeeder extends Seeder
 {
@@ -32,6 +33,7 @@ class TeamTableSeeder extends Seeder
                 'id' => $this->generateTeamId(),
                 'team_name' => $faker->company,
                 'team_city' => $faker->city,
+                'user_id' => User::inRandomOrder()->first()->id,
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s"),
             ]);
