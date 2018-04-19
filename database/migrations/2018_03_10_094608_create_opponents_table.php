@@ -15,8 +15,10 @@ class CreateOpponentsTable extends Migration
     {
         Schema::create('opponents', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('team_id');
-            $table->integer('opponent_id');
+            $table->integer('schedule_id')->length(10)->unsigned();
+            $table->string('team_id', 10);
+            $table->string('opponent_id', 10);
+            $table->enum('type', ['team', 'opponent']);
             $table->enum('status', ['waiting', 'accepted', 'declined', 'canceled']);
             $table->timestamps();
             $table->softDeletes();            

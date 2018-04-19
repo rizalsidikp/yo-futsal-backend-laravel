@@ -15,7 +15,7 @@ class CreateTableBooking extends Migration
     {
         Schema::create('booking', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('schedule_id');
+            $table->integer('schedule_id')->length(10)->unsigned();
             $table->text('photo')->nullable();
             $table->enum('status', ['booking', 'waiting verification', 'booked', 'canceled', 'expired']);
             $table->timestamps();

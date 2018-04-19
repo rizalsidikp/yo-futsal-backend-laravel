@@ -15,8 +15,8 @@ class CreateDetailTeamTable extends Migration
     {
         Schema::create('detail_team', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('team_id');            
-            $table->integer('user_id')->unsigned();         
+            $table->string('team_id', 10);            
+            $table->integer('user_id')->length(10)->unsigned();    
             $table->boolean('owner')->default(false);         
             $table->timestamps();
             $table->softDeletes();

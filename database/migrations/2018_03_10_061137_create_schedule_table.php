@@ -15,9 +15,9 @@ class CreateScheduleTable extends Migration
     {
         Schema::create('schedule', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('team_id');
-            $table->integer('field_id');
-            $table->string('opponent_id')->nullable();
+            $table->string('team_id', 10);
+            $table->integer('field_id')->length(10)->unsigned();
+            $table->string('opponent_id',10)->nullable();
             $table->boolean('open_opponent')->default(false);
             $table->date('date');
             $table->time('time');

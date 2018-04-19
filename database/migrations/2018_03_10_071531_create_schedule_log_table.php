@@ -15,8 +15,8 @@ class CreateScheduleLogTable extends Migration
     {
         Schema::create('schedule_log', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('schedule_id');
-            $table->string('opponent_id')->nullable();
+            $table->integer('schedule_id')->length(10)->unsigned();
+            $table->string('opponent_id', 10)->nullable();
             $table->boolean('open_opponent');
             $table->enum('status', ['booking', 'waiting opponent', 'match', 'canceled_user', 'canceled_field', 'expired', 'completed']);            
             $table->text('description');            

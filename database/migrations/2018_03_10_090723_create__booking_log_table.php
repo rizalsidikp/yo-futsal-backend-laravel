@@ -15,7 +15,7 @@ class CreateBookingLogTable extends Migration
     {
         Schema::create('booking_log', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('booking_id');
+            $table->integer('booking_id')->length(10)->unsigned();
             $table->enum('status', ['booking', 'waiting verification', 'booked', 'canceled', 'expired']);
             $table->text('description');            
             $table->timestamps();
