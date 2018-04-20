@@ -18,6 +18,8 @@ class CreateTriggerScheduleLog extends Migration
             BEGIN
                 INSERT INTO schedule_log (`schedule_id`,`opponent_id`,`open_opponent`, `status`, `description`, `created_at`, `updated_at`) 
                 VALUES (NEW.id,NEW.opponent_id,NEW.open_opponent, NEW.status, concat('Change status to ', NEW.status), NEW.created_at, NEW.updated_at);
+                INSERT INTO booking (`schedule_id`, `status`, `created_at`, `updated_at`) 
+                VALUES (NEW.id, NEW.status, NEW.created_at, NEW.updated_at);
             END;
         ");
     }
