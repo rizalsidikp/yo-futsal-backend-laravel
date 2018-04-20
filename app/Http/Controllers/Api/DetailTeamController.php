@@ -103,7 +103,7 @@ class DetailTeamController extends Controller
     public function myTeam()
     {
         $id = Auth::user()->id;
-        $team = $this->detail_team::where('user_id', $id)->orderBy('owner', 'desc')->orderBy('created_at', 'desc')->get();
+        $team = $this->detail_team::with(['team_detail'])->where('user_id', $id)->orderBy('owner', 'desc')->orderBy('created_at', 'desc')->get();
         $success['message'] =  "Succesfully show your team";
         $success['team'] =  $team;
         return response()->json(['success' => $success], $this->successStatus);
