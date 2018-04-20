@@ -36,6 +36,8 @@ Route::group(['middleware' => ['auth:api', 'checkheaders']], function(){
     Route::get('myschedule', 'Api\ScheduleController@mySchedule');
     //booking
     Route::resource('booking', 'Api\BookingController');
+    //Opponent
+    Route::resource('opponent', 'Api\OpponentsController');
     //field
     Route::resource('field', 'Api\FieldController');
     Route::post('field/search', 'Api\FieldController@showByName');

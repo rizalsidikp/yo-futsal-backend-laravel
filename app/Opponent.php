@@ -9,6 +9,21 @@ class Opponent extends Model
     protected $table = 'opponents';
 
     protected $fillable = [
-        'team_id', 'opponent_id', 'status'
+        'schedule_id' ,'team_id', 'opponent_id', 'type', 'status'
     ];
+
+    public function schedule_detail()
+    {
+        return $this->belongsTo('App\Schedule', 'schedule_id', 'id');
+    }
+
+    public function team_detail()
+    {
+        return $this->belongsTo('App\Team', 'team_id', 'id');
+    }
+
+    public function opponent_detail()
+    {
+        return $this->belongsTo('App\Opponent', 'opponent_id', 'id');
+    }
 }
